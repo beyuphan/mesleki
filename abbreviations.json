@@ -1,0 +1,658 @@
+[
+  {
+    "short": "ADSL",
+    "long": "Asymmetric Digital Subscriber Line"
+  },
+  {
+    "short": "AI",
+    "long": "Artificial Intelligence"
+  },
+  {
+    "short": "AIM",
+    "long": "AOL Instant Messenger"
+  },
+  {
+    "short": "ALU",
+    "long": "Arithmetic Logic Unit"
+  },
+  {
+    "short": "AMD",
+    "long": "Advanced Micro Devices"
+  },
+  {
+    "short": "ASCII",
+    "long": "American Standard Code for Information Interchange"
+  },
+  {
+    "short": "AT&T",
+    "long": "American Telephone & Telegraph company"
+  },
+  {
+    "short": "ATA",
+    "long": "Analogue Telephone Adaptor"
+  },
+  {
+    "short": "ATM",
+    "long": "Automated Teller Machine"
+  },
+  {
+    "short": "AVI",
+    "long": "Audio Video Interface"
+  },
+  {
+    "short": "BASIC",
+    "long": "Beginner's All-purpose Symbolic Instruction Code"
+  },
+  {
+    "short": "BBS",
+    "long": "Bulletin Board System"
+  },
+  {
+    "short": "Bcc",
+    "long": "Blind carbon (or courtesy)"
+  },
+  {
+    "short": "BIOS",
+    "long": "Basic Input/Output System"
+  },
+  {
+    "short": "bit",
+    "long": "binary digit"
+  },
+  {
+    "short": "bps",
+    "long": "bits per second"
+  },
+  {
+    "short": "CAD",
+    "long": "Computer-Aided Design"
+  },
+  {
+    "short": "CC",
+    "long": "Carbon (or courtesy) copy"
+  },
+  {
+    "short": "CCD",
+    "long": "Charge-Coupled Devices"
+  },
+  {
+    "short": "CD",
+    "long": "Compact Disc"
+  },
+  {
+    "short": "cd/m2",
+    "long": "Candela per square metre"
+  },
+  {
+    "short": "CD-R",
+    "long": "Compact Disc-Recordable"
+  },
+  {
+    "short": "CD-ROM",
+    "long": "Compact Disc-Read Only Memory"
+  },
+  {
+    "short": "CD-RW",
+    "long": "Compact Disc-Rewritable"
+  },
+  {
+    "short": "CERN",
+    "long": "Conseil Europ\u00e9en pour la Recherche Nucl\u00e9aire"
+  },
+  {
+    "short": "COBOL",
+    "long": "Common Business-Oriented Language"
+  },
+  {
+    "short": "CPU",
+    "long": "Central Processing Unit"
+  },
+  {
+    "short": "CRT",
+    "long": "Cathode Ray Tube"
+  },
+  {
+    "short": "CSS",
+    "long": "Cascading Style Sheets"
+  },
+  {
+    "short": "CTP",
+    "long": "Computer To Plate"
+  },
+  {
+    "short": "CU",
+    "long": "Control Unit"
+  },
+  {
+    "short": "DAB",
+    "long": "Digital Audio Broadcasting"
+  },
+  {
+    "short": "DAW",
+    "long": "Digital Audio Workstation"
+  },
+  {
+    "short": "DBMS",
+    "long": "Database Management System"
+  },
+  {
+    "short": "DDR",
+    "long": "Double Data Rate (RAM)"
+  },
+  {
+    "short": "DIMM",
+    "long": "Dual In-line Memory Module"
+  },
+  {
+    "short": "DLP",
+    "long": "Digital Light Processing"
+  },
+  {
+    "short": "DMB",
+    "long": "Digital Multimedia Broadcasting"
+  },
+  {
+    "short": "DNS",
+    "long": "Domain Name System"
+  },
+  {
+    "short": "dpi",
+    "long": "dots per inch"
+  },
+  {
+    "short": "DTP",
+    "long": "Desktop Publishing"
+  },
+  {
+    "short": "DTTV",
+    "long": "Digital Terrestrial Television"
+  },
+  {
+    "short": "DVB-H",
+    "long": "Digital Video Broadcast-Handheld"
+  },
+  {
+    "short": "DVD+/-RW",
+    "long": "Digital Versatile Disc-Rewritable"
+  },
+  {
+    "short": "DVD",
+    "long": "Digital Versatile Disc or Digital Video Disc"
+  },
+  {
+    "short": "DVD-R",
+    "long": "Digital Versatile Disc-Recordable"
+  },
+  {
+    "short": "DVD-ROM",
+    "long": "Digital Versatile Disc-Read Only Memory"
+  },
+  {
+    "short": "DVI",
+    "long": "Digital Video Interface"
+  },
+  {
+    "short": "EEPROM",
+    "long": "Electrically Erasable Programmable ROM"
+  },
+  {
+    "short": "EPS",
+    "long": "Encapsulated PostScript"
+  },
+  {
+    "short": "FAQ",
+    "long": "Frequently Asked Questions"
+  },
+  {
+    "short": "FORTRAN",
+    "long": "FORmula TRANslation"
+  },
+  {
+    "short": "FTP",
+    "long": "File Transfer Protocol"
+  },
+  {
+    "short": "GB",
+    "long": "Gigabyte (1,024 megabytes)"
+  },
+  {
+    "short": "GHz",
+    "long": "Gigahertz"
+  },
+  {
+    "short": "GIF",
+    "long": "Graphic Interchange Format"
+  },
+  {
+    "short": "GIS",
+    "long": "Geographic Information System"
+  },
+  {
+    "short": "GNU",
+    "long": "GNU's Not UNIX"
+  },
+  {
+    "short": "GPS",
+    "long": "Global Positioning System"
+  },
+  {
+    "short": "GSM",
+    "long": "Global System for Mobile communication"
+  },
+  {
+    "short": "GUI",
+    "long": "Graphical User Interface"
+  },
+  {
+    "short": "HDD",
+    "long": "Hard Disk Drive"
+  },
+  {
+    "short": "HD-DVD",
+    "long": "High Definition-Digital Versatile Disk"
+  },
+  {
+    "short": "HDTV",
+    "long": "High-definition Television"
+  },
+  {
+    "short": "HP",
+    "long": "Hewlett-Packard"
+  },
+  {
+    "short": "HTML",
+    "long": "Hypertext Markup Language"
+  },
+  {
+    "short": "HTTP",
+    "long": "Hypertext Transfer Protocol"
+  },
+  {
+    "short": "Hz",
+    "long": "Hertz"
+  },
+  {
+    "short": "I/O",
+    "long": "Input/Output"
+  },
+  {
+    "short": "IBM",
+    "long": "International Business Machines"
+  },
+  {
+    "short": "ICQ",
+    "long": "I Seek You"
+  },
+  {
+    "short": "ICT",
+    "long": "Information and Communications Technologies"
+  },
+  {
+    "short": "IM",
+    "long": "Instant Messaging"
+  },
+  {
+    "short": "IP",
+    "long": "Internet Protocol"
+  },
+  {
+    "short": "IR",
+    "long": "Instruction Register"
+  },
+  {
+    "short": "IrDA",
+    "long": "Infrared Data Association"
+  },
+  {
+    "short": "ISP",
+    "long": "Internet Service Provider"
+  },
+  {
+    "short": "IT",
+    "long": "Information Technology"
+  },
+  {
+    "short": "JPG",
+    "long": "Joint Photographic Experts Group"
+  },
+  {
+    "short": "k",
+    "long": "1 kilo, used to denote a thousand; 1,024 bytes"
+  },
+  {
+    "short": "kb",
+    "long": "kilobyte (1,024 bytes)"
+  },
+  {
+    "short": "LAN",
+    "long": "Local Area Network"
+  },
+  {
+    "short": "Laser",
+    "long": "Light Amplification by Stimulated Emission of Radiation"
+  },
+  {
+    "short": "LCD",
+    "long": "Liquid-Crystal Display"
+  },
+  {
+    "short": "LISP",
+    "long": "List Processing"
+  },
+  {
+    "short": ".mov",
+    "long": "QuickTime movie"
+  },
+  {
+    "short": "Mac",
+    "long": "Macintosh computer"
+  },
+  {
+    "short": "MAN",
+    "long": "Metropolitan Area Network"
+  },
+  {
+    "short": "MB",
+    "long": "Megabyte (1,024 kilobytes)"
+  },
+  {
+    "short": "MHz",
+    "long": "Megahertz"
+  },
+  {
+    "short": "MIDI",
+    "long": "Musical Instrument Digital Interface"
+  },
+  {
+    "short": "MIPS",
+    "long": "Million Instructions Per Second"
+  },
+  {
+    "short": "MMS",
+    "long": "Multimedia messages"
+  },
+  {
+    "short": "Modem",
+    "long": "Modulator/DEModulator"
+  },
+  {
+    "short": "MP3",
+    "long": "MPEG-1 Layer-3 Audio"
+  },
+  {
+    "short": "MPEG",
+    "long": "Moving Pictures Experts Group"
+  },
+  {
+    "short": "ms",
+    "long": "millisecond"
+  },
+  {
+    "short": "NIC",
+    "long": "Network Interface Card"
+  },
+  {
+    "short": "NUI",
+    "long": "Network User Identifier"
+  },
+  {
+    "short": "OCR",
+    "long": "Optical Character Recognition"
+  },
+  {
+    "short": "OLE",
+    "long": "Microsoft's Object Linking and Embedding standard"
+  },
+  {
+    "short": "OLED",
+    "long": "Organic Light-Emitting Diodes (display)"
+  },
+  {
+    "short": "OOP",
+    "long": "Object Oriented Programming"
+  },
+  {
+    "short": "OS",
+    "long": "Operating System"
+  },
+  {
+    "short": ".pdf",
+    "long": "portable document format"
+  },
+  {
+    "short": "PAN",
+    "long": "Personal Area Network"
+  },
+  {
+    "short": "PC",
+    "long": "Personal Computer; 2 Program Counter"
+  },
+  {
+    "short": "PCL",
+    "long": "Printer Control Language"
+  },
+  {
+    "short": "PDA",
+    "long": "Personal Digital Assistant"
+  },
+  {
+    "short": "PDL",
+    "long": "Page Description Language"
+  },
+  {
+    "short": "PGP",
+    "long": "Pretty Good Privacy"
+  },
+  {
+    "short": "PIN",
+    "long": "Personal Identification Number"
+  },
+  {
+    "short": "pixel",
+    "long": "picture element"
+  },
+  {
+    "short": "png",
+    "long": "portable network graphic"
+  },
+  {
+    "short": "ppm",
+    "long": "pages per minute"
+  },
+  {
+    "short": "PPP",
+    "long": "Point to Point Protocol"
+  },
+  {
+    "short": ".ra",
+    "long": "RealAudio file"
+  },
+  {
+    "short": "RAM",
+    "long": "Random Access Memory"
+  },
+  {
+    "short": "RGB",
+    "long": "Red, Green, Blue"
+  },
+  {
+    "short": "RFID",
+    "long": "Radio-Frequency identification"
+  },
+  {
+    "short": "RIM",
+    "long": "Research in Motion"
+  },
+  {
+    "short": "RIP",
+    "long": "Raster Image Processor"
+  },
+  {
+    "short": "RISC",
+    "long": "Reduced Instruction Set Computer"
+  },
+  {
+    "short": "ROM",
+    "long": "Read Only Memory"
+  },
+  {
+    "short": "rpm",
+    "long": "revoluations per minute"
+  },
+  {
+    "short": "RSI",
+    "long": "repetitive strain injury"
+  },
+  {
+    "short": "RSS",
+    "long": "Really Simple Syndication or Rich Site Summary"
+  },
+  {
+    "short": "SDRAM",
+    "long": "Synchronous Dynamic Random Access Memory"
+  },
+  {
+    "short": "SIM (card)",
+    "long": "Subscriber Identity Module"
+  },
+  {
+    "short": "SMS",
+    "long": "Short Message Service"
+  },
+  {
+    "short": "SMTP",
+    "long": "Simple Mail Transfer Protocol"
+  },
+  {
+    "short": "SQL",
+    "long": "Structured Query Lang"
+  },
+  {
+    "short": "SSL",
+    "long": "Secure Sockets Layer"
+  },
+  {
+    "short": "SXGA",
+    "long": "Super XGA (Extended Graphics Array)"
+  },
+  {
+    "short": "TAN",
+    "long": "Transaction Authorization Number"
+  },
+  {
+    "short": "TB",
+    "long": "Terabyte (1,024 gigabytes)"
+  },
+  {
+    "short": "TCP/IP",
+    "long": "Transmission Control Protocol / Internet Protocol"
+  },
+  {
+    "short": "TFT",
+    "long": "Thin Film Transistor (dis"
+  },
+  {
+    "short": "TIFF",
+    "long": "Tagged Image File For"
+  },
+  {
+    "short": "URL",
+    "long": "Uniform Resource Locator"
+  },
+  {
+    "short": "UMTS",
+    "long": "Universal Mobile Telecommunications System"
+  },
+  {
+    "short": "UPS",
+    "long": "Uninterruptible Power Supply"
+  },
+  {
+    "short": "USB",
+    "long": "Universal Serial Bus"
+  },
+  {
+    "short": "VAT",
+    "long": "Value Added Tax"
+  },
+  {
+    "short": "VCR",
+    "long": "Video Cassette Recorder"
+  },
+  {
+    "short": "VDU",
+    "long": "Visual Display Unit"
+  },
+  {
+    "short": "VGA",
+    "long": "Video Graphics Adapter"
+  },
+  {
+    "short": "VoiceXML",
+    "long": "Voice Extensible Markup Language"
+  },
+  {
+    "short": "VoIP",
+    "long": "Voice over Internet Protocol"
+  },
+  {
+    "short": "VRML",
+    "long": "Virtual Reality Modelling Markup Language"
+  },
+  {
+    "short": ".wav",
+    "long": "Windows wave audio f"
+  },
+  {
+    "short": "W3",
+    "long": "See Web in Glossary"
+  },
+  {
+    "short": "WAI",
+    "long": "Web Accessibility Initiative"
+  },
+  {
+    "short": "WAN",
+    "long": "Wide Area Network"
+  },
+  {
+    "short": "WAP",
+    "long": "1 Wireless access point; 2 Wireless Application Protocol"
+  },
+  {
+    "short": "Wi-Fi",
+    "long": "Wireless Fidelity"
+  },
+  {
+    "short": "WiMAX",
+    "long": "Worldwide Interoperability for Microwave Access"
+  },
+  {
+    "short": "WIMP",
+    "long": "Windows, Icons, Menus and Pointer"
+  },
+  {
+    "short": "WP",
+    "long": "Word Processing"
+  },
+  {
+    "short": "WWW",
+    "long": "World Wide Web"
+  },
+  {
+    "short": "WYSIWYG",
+    "long": "What You See Is What You Get"
+  },
+  {
+    "short": "XGA",
+    "long": "Extended Graphics Array"
+  },
+  {
+    "short": "XML",
+    "long": "Extensible Markup Language"
+  },
+  {
+    "short": "WXGA",
+    "long": "Wide XGA (Extended Graphics Array)"
+  }
+]

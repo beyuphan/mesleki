@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesleki Kısaltmalar</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <button class="toggle" id="t_mode">Switch</button>
+        <h1>Mesleki Kısaltmalar</h1>
+        
+        <div class="progress-container">
+            <div class="progress-bar" id="progress"></div>
+            <span id="progress-text">0/400</span>
+        </div>
+        
+        <div class="card" id="quiz-card">
+            <h2 id="abbreviation">Kısaltma</h2>
+            <input type="text" id="user-answer" placeholder="Uzun hali nedir?">
+            <button id="check-answer">Sonucu Gör</button>
+            <div id="result-message"></div>
+        </div>
+        
+        <div class="stats hidden" id="stats">
+            <h3>İstatistikler</h3>
+            <p>Toplam: <span id="total-answered">0</span></p>
+            <p>Doğru: <span id="correct-count">0</span></p>
+            <p>Yanlış: <span id="wrong-count">0</span></p>
+        </div>
+
+        <div class="answers-container">
+            <div class="answers-section">
+                <h3>Yanlış Cevaplar (<span id="wrong-count">0</span>)</h3>
+                <ul id="wrong-answers-list"></ul>
+            </div>
+
+            <div class="answers-section" id="truee">
+                <h3>Doğru Cevaplar (<span id="correct-count">0</span>)</h3>
+                <ul id="correct-answers-list"></ul>
+            </div>
+            
+        </div>
+        <button id="reset-button" class="reset-btn">Sıfırla</button>
+        </div>
+    </div>
+
+    <script src="https://kit.fontawesome.com/d0c556b316.js" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+</body>
+</html>
