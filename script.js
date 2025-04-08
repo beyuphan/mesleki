@@ -1,3 +1,4 @@
+// TEMA AYARLARI
 const toggleButton = document.getElementById('t_mode');
 
 function updateTheme() {
@@ -21,35 +22,15 @@ function checkTheme() {
     updateTheme();
 }
 
-toggleButton.addEventListener('click', toggleTheme);
-window.addEventListener('load', checkTheme);
-
-
+// UYGULAMA DEĞİŞKENLERİ
 let abbreviations = [];
-
-// Uygulama başlangıcında verileri yükle
-async function loadAbbreviations() {
-    try {
-        const response = await fetch('abbreviations.json');
-        const data = await response.json(); // Direkt dizi olarak gelecek
-        abbreviations = data; // data.abbreviations yerine direkt data
-    } catch (error) {
-        console.error('Hata:', error);
-        document.getElementById('quiz-card').innerHTML = `
-            <h2>Veriler yüklenirken hata oluştu</h2>
-            <p>${error.message}</p>
-            <button onclick="location.reload()">Tekrar Dene</button>
-        `;
-    }
-}
-
-
-
 let currentIndex = 0;
 let correctAnswers = 0;
 let wrongAnswers = 0;
+let correctAnswersList = [];
+let wrongAnswersList = [];
 
-// DOM Elements
+// DOM ELEMENTLERİ
 const abbreviationElement = document.getElementById('abbreviation');
 const userAnswerInput = document.getElementById('user-answer');
 const checkAnswerButton = document.getElementById('check-answer');
@@ -60,35 +41,71 @@ const statsElement = document.getElementById('stats');
 const totalAnsweredElement = document.getElementById('total-answered');
 const correctCountElement = document.getElementById('correct-count');
 const wrongCountElement = document.getElementById('wrong-count');
+const correctAnswersListElement = document.getElementById('correct-answers-list');
+const wrongAnswersListElement = document.getElementById('wrong-answers-list');
 
-// Load user progress from cookies
+// UYGULAMA BAŞLATMA
+async function initializeApp() {
+    try {
+        checkTheme();
+        await loadAbbreviations();
+        initEventListeners();
+        loadProgress();
+        showNextAbbreviation();
+    } catch (error) {
+        console.error('Uygulama başlatılamadı:', error);
+        showError(error);
+    }
+}
+
+// HATA GÖSTERİMİ
+function showError(error) {
+    document.getElementById('quiz-card').innerHTML = `
+        <h2>Uygulama başlatılamadı</h2>
+        <p>${error.message}</p>
+        <button onclick="location.reload()">Tekrar Dene</button>
+    `;
+}
+
+// VERİ YÜKLEME
+async function loadAbbreviations() {
+    const response = await fetch('abbreviations.json');
+    if (!response.ok) throw new Error('Veriler yüklenemedi');
+    abbreviations = await response.json();
+    if (abbreviations.length === 0) throw new Error('Kısaltma listesi boş');
+}
+
+// EVENT LİSTENER'LAR
+function initEventListeners() {
+    toggleButton.addEventListener('click', toggleTheme);
+    checkAnswerButton.addEventListener('click', checkAnswer);
+    userAnswerInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') checkAnswer();
+    });
+    document.getElementById('reset-button').addEventListener('click', resetProgress);
+}
+
+// İLERLEME YÜKLEME
 function loadProgress() {
     const progress = JSON.parse(localStorage.getItem('abbreviationProgress')) || {
         index: 0,
         correct: 0,
         wrong: 0,
-        wrongAnswers: [],
         correctAnswersList: [],
+        wrongAnswersList: []
     };
     
     currentIndex = progress.index;
     correctAnswers = progress.correct;
     wrongAnswers = progress.wrong;
-    wrongAnswersList = progress.wrongAnswers || [];
-    correctAnswersList = progress.correctAnswersList || [];
+    correctAnswersList = progress.correctAnswersList;
+    wrongAnswersList = progress.wrongAnswersList;
 
     updateProgress();
-    showNextAbbreviation();
-    updateCorrectAnswersList();
-    updateWrongAnswersList();
+    updateAnswersLists();
 }
-// Uygulama başlangıç fonksiyonunu değiştir
-    document.addEventListener('DOMContentLoaded', () => {
-    checkTheme();
-    loadAbbreviations(); // Verileri yükle ve uygulamayı başlat
-});
 
-// Save progress to cookies
+// İLERLEME KAYDETME
 function saveProgress() {
     const progress = {
         index: currentIndex,
@@ -97,12 +114,13 @@ function saveProgress() {
         correctAnswersList: correctAnswersList,
         wrongAnswersList: wrongAnswersList
     };
-    
     localStorage.setItem('abbreviationProgress', JSON.stringify(progress));
 }
 
-// Update progress bar and text
+// İLERLEME ÇUBUĞU GÜNCELLEME
 function updateProgress() {
+    if (abbreviations.length === 0) return;
+    
     const progress = (currentIndex / abbreviations.length) * 100;
     progressBar.style.width = `${progress}%`;
     progressText.textContent = `${currentIndex}/${abbreviations.length}`;
@@ -112,52 +130,37 @@ function updateProgress() {
     wrongCountElement.textContent = wrongAnswers;
 }
 
-// Show next abbreviation
+// SONRAKİ KISALTAYI GÖSTER
 function showNextAbbreviation() {
-    if (currentIndex < abbreviations.length) {
-        abbreviationElement.textContent = abbreviations[currentIndex].short;
-        userAnswerInput.value = '';
-        resultMessage.textContent = '';
-        userAnswerInput.focus();
-    } 
+    if (currentIndex >= abbreviations.length) {
+        showCompletionMessage();
+        return;
+    }
+    
+    abbreviationElement.textContent = abbreviations[currentIndex].short;
+    userAnswerInput.value = '';
+    resultMessage.textContent = '';
+    userAnswerInput.focus();
 }
-let wrongAnswersList = [];
-// Check user's answer
+
+// CEVAP KONTROLÜ
 function checkAnswer() {
+    if (currentIndex >= abbreviations.length) return;
+    
     const correctAnswer = abbreviations[currentIndex].long;
     const userAnswer = userAnswerInput.value.trim();
     const currentAbbr = abbreviations[currentIndex].short;
     
     if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
-        resultMessage.textContent = "Doğru!";
-        resultMessage.className = "correct";
-        correctAnswers++;
-
-          // Doğru cevabı listeye ekle
-          correctAnswersList.push({
-            abbreviation: currentAbbr,
-            answer: correctAnswer
-        });
-        updateCorrectAnswersList();
+        handleCorrectAnswer(currentAbbr, correctAnswer);
     } else {
-        resultMessage.innerHTML = `Yanlış! Doğru cevap: <strong>${correctAnswer}</strong>`;
-        resultMessage.className = "wrong";
-        wrongAnswers++;
-        // Yanlış cevabı listeye ekle
-        wrongAnswersList.push({
-            abbreviation: abbreviations[currentIndex].short,
-            userAnswer: userAnswer,
-            correctAnswer: correctAnswer
-        });
-        updateWrongAnswersList();
+        handleWrongAnswer(currentAbbr, userAnswer, correctAnswer);
     }
-
     
     currentIndex++;
     saveProgress();
     updateProgress();
     
-     
     if (currentIndex < abbreviations.length) {
         setTimeout(showNextAbbreviation, 1500);
     } else {
@@ -165,24 +168,62 @@ function checkAnswer() {
     }
 }
 
-// Yeni fonksiyonlar ekle
-function showCompletedScreen() {
-    document.getElementById('quiz-card').classList.add('hidden');
-    document.getElementById('completed-screen').classList.remove('hidden');
-    document.getElementById('stats').classList.remove('hidden');
-    
-    const wrongAnswersListElement = document.getElementById('wrong-answers-list');
-    wrongAnswersListElement.innerHTML = '';
-    
-    wrongAnswersList.forEach(item => {
+// DOĞRU CEVAP İŞLEMLERİ
+function handleCorrectAnswer(abbr, answer) {
+    resultMessage.textContent = "Doğru!";
+    resultMessage.className = "correct";
+    correctAnswers++;
+    correctAnswersList.push({ abbreviation: abbr, answer: answer });
+    updateAnswersLists();
+}
+
+// YANLIŞ CEVAP İŞLEMLERİ
+function handleWrongAnswer(abbr, userAnswer, correctAnswer) {
+    resultMessage.innerHTML = `Yanlış! Doğru cevap: <strong>${correctAnswer}</strong>`;
+    resultMessage.className = "wrong";
+    wrongAnswers++;
+    wrongAnswersList.push({
+        abbreviation: abbr,
+        userAnswer: userAnswer || 'Boş',
+        correctAnswer: correctAnswer
+    });
+    updateAnswersLists();
+}
+
+// CEVAP LİSTELERİNİ GÜNCELLE
+function updateAnswersLists() {
+    updateList(correctAnswersListElement, correctAnswersList, true);
+    updateList(wrongAnswersListElement, wrongAnswersList, false);
+}
+
+function updateList(element, list, isCorrect) {
+    element.innerHTML = '';
+    list.forEach(item => {
         const li = document.createElement('li');
-        li.innerHTML = `<strong>${item.abbreviation}:</strong> 
-                       Senin cevabın: <span class="wrong">${item.userAnswer || 'Boş'}</span>, 
-                       Doğrusu: <span class="correct">${item.correctAnswer}</span>`;
-        wrongAnswersListElement.appendChild(li);
+        if (isCorrect) {
+            li.innerHTML = `<span>${item.abbreviation}</span> <span class="correct-answer">✓</span>`;
+        } else {
+            li.innerHTML = `
+                <span>${item.abbreviation}</span>
+                <div>
+                    <span class="wrong-answer">${item.userAnswer}</span> →
+                    <span class="correct-answer">${item.correctAnswer}</span>
+                </div>
+            `;
+        }
+        element.appendChild(li);
     });
 }
 
+// TAMAMLAMA MESAJI
+function showCompletionMessage() {
+    abbreviationElement.textContent = "Tebrikler! Tüm kısaltmaları tamamladınız!";
+    userAnswerInput.style.display = 'none';
+    checkAnswerButton.style.display = 'none';
+    statsElement.classList.remove('hidden');
+}
+
+// SIFIRLAMA İŞLEMİ
 function resetProgress() {
     if (confirm("Tüm ilerlemeniz silinecek. Emin misiniz?")) {
         localStorage.removeItem('abbreviationProgress');
@@ -193,55 +234,15 @@ function resetProgress() {
         wrongAnswersList = [];
         
         updateProgress();
-        updateCorrectAnswersList();
-        updateWrongAnswersList();
+        updateAnswersLists();
         showNextAbbreviation();
         
         resultMessage.textContent = '';
-        userAnswerInput.value = '';
+        userAnswerInput.style.display = 'block';
+        checkAnswerButton.style.display = 'block';
+        statsElement.classList.add('hidden');
     }
 }
-// Listeleri güncelleyen fonksiyonlar
-function updateCorrectAnswersList() {
-    const listElement = document.getElementById('correct-answers-list');
-    listElement.innerHTML = '';
-    
-    correctAnswersList.forEach(item => {
-        const li = document.createElement('li');
-        li.innerHTML = `<span>${item.abbreviation}</span> <span class="correct-answer">✓</span>`;
-        listElement.appendChild(li);
-    });
-}
 
-function updateWrongAnswersList() {
-    const listElement = document.getElementById('wrong-answers-list');
-    listElement.innerHTML = '';
-    
-    wrongAnswersList.forEach(item => {
-        const li = document.createElement('li');
-        li.innerHTML = `
-            <span>${item.abbreviation}</span>
-            <div>
-                <span class="wrong-answer">${item.userAnswer}</span> →
-                <span class="correct-answer">${item.correctAnswer}</span>
-            </div>
-        `;
-        listElement.appendChild(li);
-    });
-}
-
-
-// Reset butonu event listener'ı ekle
-document.getElementById('reset-button').addEventListener('click', resetProgress);
-
-
-// Event listeners
-checkAnswerButton.addEventListener('click', checkAnswer);
-userAnswerInput.addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-        checkAnswer();
-    }
-});
-
-// Initialize
-loadProgress();
+// UYGULAMAYI BAŞLAT
+document.addEventListener('DOMContentLoaded', initializeApp);
