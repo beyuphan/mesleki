@@ -1,5 +1,10 @@
 // TEMA AYARLARI
 const toggleButton = document.getElementById('t_mode');
+const modeToggle = document.getElementById('mode_toggle'); // HTML'e buton eklemen lazım
+
+let isQuizMode = false; // Varsayılan: Yazma modu
+let options = []; // Şıklar için dizi
+
 
 function updateTheme() {
     const isDarkMode = document.body.classList.contains('dark-theme');
@@ -44,10 +49,97 @@ const wrongCountElement = document.getElementById('wrong-count');
 const correctAnswersListElement = document.getElementById('correct-answers-list');
 const wrongAnswersListElement = document.getElementById('wrong-answers-list');
 
+
+// ŞIKLARI OLUŞTUR
+function generateOptions(correctAnswer) {
+    const options = [correctAnswer];
+    
+    // 2 yanlış şık ekle (rastgele)
+    while(options.length < 3) {
+        const randomIndex = Math.floor(Math.random() * abbreviations.length);
+        const wrongOption = abbreviations[randomIndex].long;
+        if(!options.includes(wrongOption)) {
+            options.push(wrongOption);
+        }
+    }
+    
+    // Karıştır
+    return options.sort(() => Math.random() - 0.5);
+}
+
+// TEST MODU ARAYÜZÜ
+function showQuizMode() {
+    document.getElementById('user-answer').style.display = 'none';
+    const optionsContainer = document.getElementById('options-container');
+    optionsContainer.style.display = 'block';
+    
+    const correctAnswer = abbreviations[currentIndex].long;
+    options = generateOptions(correctAnswer);
+    
+    optionsContainer.innerHTML = '';
+    options.forEach((option, i) => {
+        const button = document.createElement('button');
+        button.textContent = option;
+        button.onclick = () => {
+            // Tüm butonlardan active classını kaldır
+            document.querySelectorAll('#options-container button').forEach(btn => {
+                btn.classList.remove('selected', 'wrong-selected');
+            });
+            
+            // Seçilen butonu işaretle
+            const isCorrect = option.toLowerCase() === correctAnswer.toLowerCase();
+            button.classList.add(isCorrect ? 'selected' : 'wrong-selected');
+            
+            // Cevabı kontrol et
+            userAnswerInput.value = option;
+            checkAnswer(option);
+        };
+        optionsContainer.appendChild(button);
+    });
+}
+
+// YAZMA MODU ARAYÜZÜ
+function showWriteMode() {
+    document.getElementById('user-answer').style.display = 'block';
+    document.getElementById('options-container').style.display = 'none';
+}
+
+function toggleMode() {
+    isQuizMode = !isQuizMode;
+    modeToggle.textContent = isQuizMode ? "Yazma Moduna Geç" : "Test Moduna Geç";
+    saveCurrentMode();
+    
+    // Mevcut soruyu yeni modda göster
+    if (currentIndex < abbreviations.length) {
+        if (isQuizMode) {
+            showQuizMode();
+        } else {
+            showWriteMode();
+        }
+    }
+}
+
+// MODU KAYDET
+function saveCurrentMode() {
+    localStorage.setItem('quizMode', JSON.stringify(isQuizMode));
+}
+
+// MODU YÜKLE
+function loadCurrentMode() {
+    const savedMode = localStorage.getItem('quizMode');
+    if (savedMode !== null) {
+        isQuizMode = JSON.parse(savedMode);
+        modeToggle.textContent = isQuizMode ? "Yazma Moduna Geç" : "Test Moduna Geç";
+    }
+}
+
+
+
 // UYGULAMA BAŞLATMA
 async function initializeApp() {
     try {
         checkTheme();
+        loadCurrentMode(); // Modu yükle
         await loadAbbreviations();
         initEventListeners();
         loadProgress();
@@ -55,6 +147,13 @@ async function initializeApp() {
     } catch (error) {
         console.error('Uygulama başlatılamadı:', error);
         showError(error);
+    }
+
+     // Moda göre arayüzü ayarla
+     if(isQuizMode) {
+        showQuizMode();
+    } else {
+        showWriteMode();
     }
 }
 
@@ -78,7 +177,12 @@ async function loadAbbreviations() {
 // EVENT LİSTENER'LAR
 function initEventListeners() {
     toggleButton.addEventListener('click', toggleTheme);
-    checkAnswerButton.addEventListener('click', checkAnswer);
+    modeToggle.addEventListener('click', toggleMode); // Bu satırı ekledik
+    checkAnswerButton.addEventListener('click', function(){
+        if(!isQuizMode){
+            checkAnswer();
+        }
+    });
     userAnswerInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') checkAnswer();
     });
@@ -144,29 +248,52 @@ function showNextAbbreviation() {
 }
 
 // CEVAP KONTROLÜ
-function checkAnswer() {
+function checkAnswer(answer = null) {
+    // Eğer tüm sorular bitmişse devam etme
     if (currentIndex >= abbreviations.length) return;
     
     const correctAnswer = abbreviations[currentIndex].long;
-    const userAnswer = userAnswerInput.value.trim();
+    let userAnswer;
+    
+    // Kullanıcı cevabını al
+    if (isQuizMode && answer !== null) {
+        // Test modunda parametre olarak gelen cevabı kullan
+        userAnswer = answer;
+    } else {
+        // Yazma modunda input alanındaki cevabı kullan
+        userAnswer = userAnswerInput.value.trim();
+    }
+    
     const currentAbbr = abbreviations[currentIndex].short;
     
-    if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+    // Cevap kontrolü
+    const isCorrect = userAnswer.toLowerCase() === correctAnswer.toLowerCase();
+    
+    // Sonucu işle
+    if (isCorrect) {
         handleCorrectAnswer(currentAbbr, correctAnswer);
     } else {
         handleWrongAnswer(currentAbbr, userAnswer, correctAnswer);
     }
     
+    // İlerlemeyi güncelle
     currentIndex++;
     saveProgress();
     updateProgress();
     
+    // Sonraki soruya geç veya tamamlandı mesajı göster
     if (currentIndex < abbreviations.length) {
-        setTimeout(showNextAbbreviation, 1500);
+        setTimeout(() => {
+            showNextAbbreviation();
+            if (isQuizMode) {
+                showQuizMode();
+            }
+        }, 1500);
     } else {
         showCompletionMessage();
     }
 }
+
 
 // DOĞRU CEVAP İŞLEMLERİ
 function handleCorrectAnswer(abbr, answer) {
@@ -182,7 +309,7 @@ function handleWrongAnswer(abbr, userAnswer, correctAnswer) {
     resultMessage.innerHTML = `Yanlış! Doğru cevap: <strong>${correctAnswer}</strong>`;
     resultMessage.className = "wrong";
     wrongAnswers++;
-    wrongAnswersList.push({
+    wrongAnswersList.unshift({
         abbreviation: abbr,
         userAnswer: userAnswer || 'Boş',
         correctAnswer: correctAnswer

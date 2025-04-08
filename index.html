@@ -9,6 +9,8 @@
 <body>
     <div class="container">
         <button class="toggle" id="t_mode">Switch</button>
+        <button id="mode_toggle">Test Moduna Geç</button>
+        
         <h1>Mesleki Kısaltmalar</h1>
         
         <div class="progress-container">
@@ -18,6 +20,11 @@
         
         <div class="card" id="quiz-card">
             <h2 id="abbreviation">Kısaltma</h2>
+
+
+            <div id="options-container" style="display:none;"></div>
+
+
             <input type="text" id="user-answer" placeholder="Uzun hali nedir?">
             <button id="check-answer">Sonucu Gör</button>
             <div id="result-message"></div>
@@ -32,12 +39,12 @@
 
         <div class="answers-container">
             <div class="answers-section">
-                <h3>Yanlış Cevaplar (<span id="wrong-count">0</span>)</h3>
+                <h3>Yanlış Cevaplar <span id="wrong-count"></span></h3>
                 <ul id="wrong-answers-list"></ul>
             </div>
 
             <div class="answers-section" id="truee">
-                <h3>Doğru Cevaplar (<span id="correct-count">0</span>)</h3>
+                <h3>Doğru Cevaplar <span id="correct-count"></span></h3>
                 <ul id="correct-answers-list"></ul>
             </div>
             
